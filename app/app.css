@@ -1,2 +1,36 @@
-/* app css stylesheet */
+@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+body {
+	margin-top: 50px;
+}
+
+.nt-heading {
+  font-family: 'Open Sans';
+  font-size:1.5em;
+}
+
+.movie-container {
+	height: 250px;
+}
+
+.movie-thumb {
+	text-align: center;
+	color: black;
+}
+
+.movie-thumb h5 {
+	font-weight: bold;
+	margin-top: 0px;
+	
+}
+
+.movie-thumb:hover {
+	text-decoration: none;
+	color: grey;
+}
+
+.thumbnail {
+	margin-bottom: 10px;
+	max-height: 200px;
+}
