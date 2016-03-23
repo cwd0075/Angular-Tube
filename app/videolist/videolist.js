@@ -2,17 +2,18 @@
 
 angular.module("myTube.videolist",[])
 	.controller('videolistCtrl', ['$scope', '$http', '$log', function($scope, $http, $log){
-		var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=IzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=';
+		var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=';
+		//var url ='https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&publishedAfter=2016-02-01T00%3A00%3A00Z&publishedBefore=2016-02-14T00%3A00%3A00Z&locationRadius=25km&location=10.766667%2C+106.716667';
 		$http.get(url,{
         params: {
           type: 'video',
           fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
         	}
       	})
-		.success(function(data){
+		.success(function(response){
 
 			var results = [];
-           angular.forEach(response.items, function(entry) {
+          	angular.forEach(response.items, function(entry) {
              results.push(ytVideoPrepare(entry));
             });
           $log.info(response);
@@ -46,7 +47,7 @@ angular.module("myTube.videolist",[])
         keywords : 'keywords',
         embedUrl : ytCreateEmbedURL(id)
       }
-
+    }
      function ytCreateEmbedURL(id) {
       var YT_EMBED_URL = 'http://www.youtube.com/embed/{ID}?autoplay=1';
       return YT_EMBED_URL.replace('{ID}', id);
@@ -54,6 +55,10 @@ angular.module("myTube.videolist",[])
 
 	}])
 
+// Todo:
+// Refactoring to a separate service, so the controller can use xxx.then()
+// Refactor the url to constant
+// Click to create movie view page
 
 //  https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&publishedAfter=2016-02-01T00%3A00%3A00Z&publishedBefore=2016-02-14T00%3A00%3A00Z&locationRadius=25km&location=10.766667%2C+106.716667
 //  https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=
