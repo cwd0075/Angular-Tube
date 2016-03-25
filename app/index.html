@@ -7,27 +7,25 @@
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
-	
-	<!-- update the controller to use http to get the videolist -->
-	
-	<div class="container">
-      <div class="row">
-        <div class="well col-sm-10 col-xs-12">
-          <div class="row">
-            <div class="movie-container col-sm-2 col-xs-6" ng-repeat="video in videos">
-              <a href="#" class="movie-thumb">
-     		  <img class="thumbnail img-responsive" ng-src="{{ video.image.url }}" />
-  			  <h5 class="nt-heading">{{ video.title }}</h5>
-  			           
-              </a>
-            </div>
-          </div>          
-        </div>
+ 	<div class="container">
+    <div class="row">
+      <div class="well col-sm-10 col-xs-12">
+        <div class="row">
+          <div class="movie-container col-sm-2 col-xs-6" ng-repeat="video in videos">
+            <a href="#" class="movie-thumb">
+   		      <img class="thumbnail img-responsive" ng-src="{{ video.image.url }}" />
+			      <h5 class="nt-heading">{{ video.title }}</h5>
+			           
+            </a>
+          </div>
+        </div>          
       </div>
     </div>
+  </div>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="app.js"></script>
 	<script src="videolist/videolist.js"></script>
+  <script src="components/services.js"></script>
 </body>
 </html>
 
