@@ -3,7 +3,7 @@ angular.module("myTube.modelservices",[])
 	.constant('YT_EMBED_URL',   'http://www.youtube.com/embed/{ID}?autoplay=1')
 	.constant('YT_VIDEO_URL',   'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=')
 	//'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&publishedAfter=2016-02-01T00%3A00%3A00Z&publishedBefore=2016-02-14T00%3A00%3A00Z&locationRadius=25km&location=10.766667%2C+106.716667'
-	.factory('getVideos', ['$http', '$q', '$log', function($http, $q, $log){
+	.factory('getVideos', ['$http', '$q', '$log', 'ytVideoPrepare', function($http, $q, $log, ytVideoPrepare){
 		return function(url){
 			var defer = $q.defer();
 
