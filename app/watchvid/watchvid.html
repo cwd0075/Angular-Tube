@@ -1,0 +1,44 @@
+<div class="well col-xs-12">    
+    
+        <h5 class="nt-heading">
+            {{ movieId }}
+            {{ video_src}}
+            {{ video_poster}}
+        </h5>
+        <div class="yt-player-container">
+            <div ng-if="active">
+                <iframe width="640" height="385" ng-src= "{{ trustSrc(video_src) }}" class="yt-video-player"></iframe>
+            </div>
+            <div ng-click="active=true" ng-hide="active" class="yt-video-poster">
+                <img ng-src= "{{ video_poster }}"/>
+                <span class="yt-video-play-button fa fa-play"></span>
+            </div>
+        </div>
+    
+
+<!--     <div class="nt-player-panel">
+        <div class="nt-player" yt-video-player="{{ video_id }}"></div>
+    </div>
+
+    <div class="row nt-grid">
+        <div class="col-md-8 col">
+            
+                <h5 class="nt-heading">
+                    Video Info
+                </h5>
+            
+
+            <div class="row nt-padded">
+                <img ng-src="{{ video.image.url }}" class="col-md-4"/>
+
+                <div class="nt-video-panel-inner col-md-8">
+                    
+                    <h4>{{ video.title }}</h4>
+
+                    <p ng-if="video.description">{{ video.description }}</p>
+                    <p ng-if="!video.description">No description available</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
