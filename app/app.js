@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module("myTube", [
+	'ngRoute',
 	'myTube.videolist',
 	'myTube.modelservices'
 	]).
