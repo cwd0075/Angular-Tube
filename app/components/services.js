@@ -2,12 +2,13 @@
 angular.module("myTube.modelservices",[])
 	.constant('YT_EMBED_URL',   'http://www.youtube.com/embed/{ID}?autoplay=1')
 	.constant('YT_VIDEO_URL',   'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=')
+	.constant('YT_ONE_VIDEO_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video')
 	//'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&publishedAfter=2016-02-01T00%3A00%3A00Z&publishedBefore=2016-02-14T00%3A00%3A00Z&locationRadius=25km&location=10.766667%2C+106.716667'
-	.factory('getVideos', ['$http', '$q', '$log', 'ytVideoPrepare', function($http, $q, $log, ytVideoPrepare){
-		return function(url){
+	.factory('getVideos', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_VIDEO_URL', function($http, $q, $log, ytVideoPrepare, YT_VIDEO_URL){
+		return function(){
 			var defer = $q.defer();
 
-			$http.get(url,{
+			$http.get(YT_VIDEO_URL,{
 		        params: {
 		          type: 'video',
 		          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
@@ -23,6 +24,28 @@ angular.module("myTube.modelservices",[])
 		          defer.resolve(results);
 		         
 		 		});
+			return defer.promise;
+		};
+	}])
+	.factory('getVideo', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_ONE_VIDEO_URL', function($http, $q, $log, ytVideoPrepare, YT_ONE_VIDEO_URL){
+		return function(vidID){
+			var defer = $q.defer();
+
+			$http.get(YT_ONE_VIDEO_URL,{
+		        params: {
+		          q: vidID,
+		          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
+		        	}
+		      	})
+				.success(function(response){
+
+				  var results = [];
+		          angular.forEach(response.items, function(entry) {
+		             results.push(ytVideoPrepare(entry));
+		            });
+		          $log.info(response);
+		          defer.resolve(results[0]);
+		        });
 			return defer.promise;
 		};
 	}])

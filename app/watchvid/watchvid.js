@@ -1,11 +1,16 @@
 'use strict';
 
 angular.module("myTube.watchvid",[])
-	.controller('watchvidCtrl', ['$scope', '$routeParams', '$sce', function($scope, $routeParams, $sce){
+	.controller('watchvidCtrl', ['$scope', '$routeParams', '$sce', 'getVideo', function($scope, $routeParams, $sce, getVideo){
+		
+		
+		getVideo($routeParams.id).then(function(results) {
+        	$scope.videoWatch = results;
+		});
+
 		$scope.trustSrc = function(src) {
     		return $sce.trustAsResourceUrl(src);
     	};
-		$scope.movieId = $routeParams.id;
-		$scope.video_src = 'http://www.youtube.com/embed/{ID}?autoplay=1'.replace('{ID}', $routeParams.id);
-		$scope.video_poster = 'https://i1.ytimg.com/vi/{ID}/hqdefault.jpg'.replace('{ID}', $routeParams.id);
+		
+
 	}]);
