@@ -49,6 +49,18 @@ angular.module("myTube.modelservices",[])
 			return defer.promise;
 		};
 	}])
+	.factory('getCities', ['$http', '$q', '$log', function($http, $q, $log){
+		return function(){
+			var defer = $q.defer();
+
+			$http.get("json/cities.json")
+				.success(function(response){
+				  $log.info(response);
+		          defer.resolve(response);
+		        });
+			return defer.promise;
+		};
+	}])
 	.factory('ytVideoPrepare',['ytCreateEmbedURL', function(ytCreateEmbedURL){
 		return function(entry){
 	      var id          = entry.id.videoId;

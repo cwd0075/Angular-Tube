@@ -3,6 +3,7 @@
 angular.module("myTube", [
 	'ngRoute',
 	'myTube.videolist',
+	'myTube.citylist',
 	'myTube.watchvid',
 	'myTube.modelservices'
 	]).
