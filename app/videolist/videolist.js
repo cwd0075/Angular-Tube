@@ -9,7 +9,7 @@ angular.module("myTube.videolist",[])
 
      	getCities().then(function(results) {
         	$scope.cityList = results;
-
+        });	
 	}]);
 
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("myTube.city.list",[])
+angular.module("myTube.citylist",[])
 	.controller('citylistCtrl', ['$scope', 'getCities', function($scope, getCities){
 		
     	getCities().then(function(results) {
