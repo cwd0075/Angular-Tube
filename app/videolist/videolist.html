@@ -14,7 +14,7 @@
   <div class="list-group">
     
 
-    <a href="#" class="list-group-item" ng-repeat="city in cityList">
+    <a href="#/city/{{ city.coordinate }}" class="list-group-item" ng-repeat="city in cityList">
       {{city.name}}
     </a>
   </div>
