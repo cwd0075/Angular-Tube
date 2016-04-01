@@ -2,6 +2,7 @@
 
 angular.module("myTube", [
 	'ngRoute',
+	'720kb.datepicker',
 	'myTube.videolist',
 	'myTube.citylist',
 	'myTube.watchvid',

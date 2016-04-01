@@ -5,8 +5,35 @@
 	<title>Youtube Hits</title>
 	<link rel="stylesheet" type="text/css" href="app.css">
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css">
 </head>
 <body>
+
+  <header class="nt-header">
+    <!-- <form ng-submit="search()" ng-controller="SearchFormCtrl" class="nt-search-header">
+      
+      <section ng-if="advanced" class="nt-advanced-search-header row">
+        <datalist id="categories" ng-controller="CategoryListCtrl">
+          <option value="{{ category }}" ng-repeat="category in categories" />
+        </datalist>
+        <div class="col-md-4">
+          <input type="text" ng-model="advanced.category" placeholder="Youtube Category" class="form-control" list="categories" />
+        </div>
+        <div class="col-md-4">
+          <select class="form-control" ng-model="advanced.orderby" ng-options="option as option for option in orderingOptions" placeholder="Sorting Options...">
+          </select>
+        </div>
+        <button class="btn btn-default col-md-2">
+          <span class="fa fa-search"></span> Submit Search
+        </button>
+      </section>
+    </form> -->
+    <datepicker>
+      <input ng-model="date" type="text"/>
+    </datepicker>
+  
+  </header>
+
  	<div class="container">
     <div class="row">
       <ng-view></ng-view>
@@ -14,6 +41,7 @@
   </div>
 	<script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angularjs-datepicker/src/js/angular-datepicker.js"></script>
 	<script src="app.js"></script>
 	<script src="videolist/videolist.js"></script>
   <script src="citylist/citylist.js"></script>
