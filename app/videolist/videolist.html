@@ -2,9 +2,7 @@
   <div class="row">
     <div class="movie-container col-sm-4 col-xs-6" ng-repeat="video in videos">
       <a href="#/watch/{{ video.id }}" class="movie-thumb">
-	      <img ng-src="{{ video.image.url }}" />
-      <h5 class="nt-heading">{{ video.title }}</h5>
-           
+	      <img title="{{ video.title }}" ng-src="{{ video.image.url }}" />
       </a>
     </div>
   </div>          
