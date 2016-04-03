@@ -1,9 +1,10 @@
 'use strict';
 angular.module("myTube.modelservices",[])
+	.value('searchDate', {after:"2016-01-01", before:"2016-12-31"})
 	.constant('YT_EMBED_URL',   'http://www.youtube.com/embed/{ID}?autoplay=1')
 	.constant('YT_VIDEO_URL',   'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=')
 	.constant('YT_ONE_VIDEO_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video')
-	.constant('YT_VIDEO_CITY_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&publishedAfter=2016-02-01T00%3A00%3A00Z&publishedBefore=2016-02-14T00%3A00%3A00Z&locationRadius=25km')
+	.constant('YT_VIDEO_CITY_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&locationRadius=25km')
 	.factory('getVideos', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_VIDEO_URL', function($http, $q, $log, ytVideoPrepare, YT_VIDEO_URL){
 		return function(){
 			var defer = $q.defer();
@@ -49,12 +50,21 @@ angular.module("myTube.modelservices",[])
 			return defer.promise;
 		};
 	}])
-	.factory('getVideosByCity', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_VIDEO_CITY_URL', function($http, $q, $log, ytVideoPrepare, YT_VIDEO_CITY_URL){
+	.factory('getVideosByCity', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_VIDEO_CITY_URL', 'searchDate', function($http, $q, $log, ytVideoPrepare, YT_VIDEO_CITY_URL, searchDate){
 		return function(cityXY){
 			var defer = $q.defer();
-
+			
+			var pAfter, pBefore;
+			
+			pAfter = (searchDate.after+'T00:00:00Z');
+			pBefore = (searchDate.before+'T00:00:00Z');
+			$log.info(pAfter);
+			$log.info(pBefore);
+			
 			$http.get(YT_VIDEO_CITY_URL,{
 		        params: {
+		          publishedAfter: pAfter,
+		          publishedBefore: pBefore, 
 		          location: cityXY,
 		          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
 		        	}
