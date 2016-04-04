@@ -8,7 +8,7 @@ angular.module("myTube", [
 	'myTube.watchvid',
 	'myTube.modelservices'
 	])
-
+.constant('VERSION', 1.1)
 .config(['$routeProvider', function($routeProvider){
 	$routeProvider.
 		when("/", {templateUrl: "videolist/videolist.html", controller: "videolistCtrl"}).

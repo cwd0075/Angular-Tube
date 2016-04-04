@@ -7,20 +7,25 @@ module.exports = function(config){
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/components/**/*.js',
-      'app/view*/**/*.js'
+      'app/bower_components/angularjs-datepicker/src/js/angular-datepicker.js',
+      'app/components/*.js',
+      'app/citylist/*.js',
+      'app/watchvid/*.js',
+      'app/*.js',
+      'app/videolist/*.js'
     ],
 
-    autoWatch : true,
+    autoWatch : false,
+    colors : true,
+    singleRun : true,
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+    browsers : ['PhantomJS'],
 
     plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
             'karma-jasmine',
+            'karma-phantomjs-launcher',
             'karma-junit-reporter'
             ],
 
