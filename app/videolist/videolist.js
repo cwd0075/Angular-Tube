@@ -14,7 +14,10 @@ angular.module("myTube.videolist",[])
 
 
 
-// Todo2:
-// Add country list on right panel
+// Todo:
+
 // Add Unit testing
+// Add view count in watchvid template
+// Update the display to match original ng-Tube
+
 
