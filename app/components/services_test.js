@@ -27,8 +27,23 @@ describe('Unit tests: services', function() {
   }));
   	
   	
-  it('should retrieve the movie id', function() {
+  it('should retrieve the movie id by the ytVideoPrepare function', function() {
         
     expect(output.id).toBe('RgKAFK5djSk');
   });
+
+  var input1, output1;
+
+  input1 = 'RgKAFK5djSk';
+
+  beforeEach(inject(function(ytCreateEmbedURL){
+  		
+  		output1 = ytCreateEmbedURL(input1);
+  }));
+
+  it('should insert the video id into the url by the ytCreateEmbedURL function', function() {
+        
+    expect(output1).toBe('http://www.youtube.com/embed/RgKAFK5djSk?autoplay=1');
+  });
+
 });
