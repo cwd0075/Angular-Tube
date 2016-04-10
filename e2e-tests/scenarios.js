@@ -1,42 +1,65 @@
 'use strict';
 
-/* https://github.com/angular/protractor/blob/master/docs/toc.md */
+describe('Integration tests: videolist', function() {
+  // var firstNumber = element(by.model('first'));
+  // var secondNumber = element(by.model('second'));
+  // var goButton = element(by.id('gobutton'));
+  // var latestResult = element(by.binding('latest'));
 
-describe('my app', function() {
+  // beforeEach(function() {
+  //   browser.get('http://juliemr.github.io/protractor-demo/');
+  // });
 
+  // it('should have a title', function() {
+  //   expect(browser.getTitle()).toEqual('Super Calculator');
+  // });
 
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
-    browser.get('index.html');
-    expect(browser.getLocationAbsUrl()).toMatch("/view1");
+  // it('should add one and two', function() {
+  //   firstNumber.sendKeys(1);
+  //   secondNumber.sendKeys(2);
+
+  //   goButton.click();
+
+  //   expect(latestResult.getText()).toEqual('3');
+  // });
+  beforeEach(function(){
+      browser.get('http://52.26.121.248:8000/app');
   });
 
-
-  describe('view1', function() {
-
-    beforeEach(function() {
-      browser.get('index.html#/view1');
-    });
-
-
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
-    });
-
+  it('should render the videolist when user navigates to /app', function(){
+      
+      expect(browser.getCurrentUrl()).toMatch('\/#');
   });
-
-
-  describe('view2', function() {
-
-    beforeEach(function() {
-      browser.get('index.html#/view2');
-    });
-
-
-    it('should render view2 when user navigates to /view2', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 2/);
-    });
-
+  it('should take you to the city videolist when you click a link on the city list', function(){
+     var link = element(by.css('.list-group-item:nth-child(1)'));
+     link.click();
+     expect(browser.getCurrentUrl()).toMatch('\/city');
   });
+  
+
 });
+
+describe('Integration tests: citylist', function() {
+  beforeEach(function(){
+      browser.get('http://52.26.121.248:8000/app/#/city/22.25,+114.166667');
+  });
+  it('should render the video details when you click a video in the videolist', function(){
+    var link = element(by.css('.movie-container:nth-child(1)'));
+    link.click();
+    expect(browser.getCurrentUrl()).toMatch('\/watch');
+  });
+
+});  
+
+describe('Integration tests: watchvid', function() {
+  beforeEach(function(){
+      browser.get('http://52.26.121.248:8000/app/#/watch/Hxw5fFN2do8');
+  });
+  it('should play the video when you click on the video inside video details page', function(){
+    var link = element(by.css('.yt-video-poster'));
+    link.click();
+    var ele = by.tagName("iframe");
+    expect(browser.isElementPresent(ele)).toBe(true);
+  });
+
+});  
