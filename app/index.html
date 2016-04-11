@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Youtube Hits</title>
-	<link rel="stylesheet" type="text/css" href="app.css">
+  <link rel="stylesheet" type="text/css" href="app.css">
   <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css">
 </head>
@@ -12,6 +12,7 @@
   <header class="nt-header">
     <section>
       <form ng-submit="search()" ng-controller="SearchFormCtrl">
+        <div class="alert alert-danger" ng-show="page_load_error"> {{ page_load_error }} </div>
         <div class="col-md-4">
           <datepicker date-format="yyyy-MM-dd">
             <input ng-model="dateafter" type="text" placeholder="Video after ..."/>

@@ -46,4 +46,20 @@ describe('Unit tests: services', function() {
     expect(output1).toBe('http://www.youtube.com/embed/RgKAFK5djSk?autoplay=1');
   });
 
+  
+
+  it('should return error by ytCheckDate if input incorrect date', inject(function(ytCheckDate){
+    expect(ytCheckDate('2016-01-01','2015-01-01')).toEqual({code: 'invalid_date_sequence'});
+    expect(ytCheckDate('2014-01-01','2014-01-01')).toEqual({code: 'invalid_date_sequence'});
+    expect(ytCheckDate('','2015-01-01')).toEqual({code: 'missing_date'});
+    expect(ytCheckDate('2014-04-04','2015-01-01')).toBeNull();
+  }));
+
+  it('should save date to searchDate by ytUpdateSearchDate', inject(function(ytUpdateSearchDate, searchDate){
+    output1 = ytUpdateSearchDate('2015-01-01','2015-02-01');
+    expect(searchDate.after).toEqual('2015-01-01');
+    expect(searchDate.before).toEqual('2015-02-01');
+  }));
+  
+
 });

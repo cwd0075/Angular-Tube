@@ -122,11 +122,33 @@ angular.module("myTube.modelservices",[])
 	      }
 		};
 
-	}])	
+	}])
 	.factory('ytCreateEmbedURL',['YT_EMBED_URL', function(YT_EMBED_URL){
 		return function(id){
 			return YT_EMBED_URL.replace('{ID}', id);
 		};
+	}])
+	.factory('ytUpdateSearchDate',['ytCheckDate', 'searchDate', function(ytCheckDate, searchDate){
+		return function(d_after, d_before){
+			var err = ytCheckDate (d_after, d_before);
+			if (!err)
+			{
+				searchDate.after = d_after;
+				searchDate.before = d_before;
+			}
+			return err; 
+		};
+	}])
+	.factory('ytCheckDate', ['$log', function($log){
+		return function(d_after, d_before){
+			var d1 = new Date(d_after);
+			var d2 = new Date(d_before);
+			var err = null;
+			if (!d_after || !d_before) err={code: 'missing_date'};
+			if (d1>=d2) err={code: 'invalid_date_sequence'};
+			return err;
+		};
+
 	}]);
 
 	// factory prototype
