@@ -15,15 +15,15 @@
         <div class="alert alert-danger" ng-show="page_load_error"> {{ page_load_error }} </div>
         <div class="col-md-4">
           <datepicker date-format="yyyy-MM-dd">
-            <input ng-model="dateafter" type="text" placeholder="Video after ..."/>
+            <input id="inputDateAfter" ng-model="dateafter" type="text" placeholder="Video after ..."/>
           </datepicker>
         </div>
         <div class="col-md-4">
           <datepicker date-format="yyyy-MM-dd">
-            <input ng-model="datebefore" type="text" placeholder="Video before ..."/>
+            <input id="inputDateBefore" ng-model="datebefore" type="text" placeholder="Video before ..."/>
           </datepicker>
         </div>
-        <button class="btn btn-default col-md-2">
+        <button class="btn btn-default col-md-2" id="updateButton">
           <span class="fa fa-search"></span> Submit Date
         </button>
       </form>
