@@ -24,6 +24,8 @@
                     <div class="nt-video-panel-inner col-md-8">
                         
                         <h4>{{ videoWatch.title }}</h4>
+                        
+                        <p>Views: {{ videoWatch.viewCount }}</p>
 
                         <p ng-if="videoWatch.description">{{ videoWatch.description }}</p>
                         <p ng-if="!videoWatch.description">No description available</p>

@@ -15,10 +15,6 @@ angular.module("myTube.videolist",[])
 
 
 // Todo:
-
-//Refactoring and Update Search Date function, 
-//Protractor: verify the web content is correct
-// Add Unit testing
 // Add view count in watchvid template
 // Update the display to match original ng-Tube
 

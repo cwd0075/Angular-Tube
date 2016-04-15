@@ -7,10 +7,10 @@ angular.module("myTube.watchvid",[])
 		getVideo($routeParams.id).then(function(results) {
         	$scope.videoWatch = results;
 		});
-
+		
 		$scope.trustSrc = function(src) {
     		return $sce.trustAsResourceUrl(src);
     	};
 		
-
+    	
 	}]);

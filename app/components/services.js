@@ -4,6 +4,7 @@ angular.module("myTube.modelservices",[])
 	.constant('YT_EMBED_URL',   'http://www.youtube.com/embed/{ID}?autoplay=1')
 	.constant('YT_VIDEO_URL',   'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=')
 	.constant('YT_ONE_VIDEO_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video')
+	.constant('YT_VIDEO_COUNT_URL', 'https://www.googleapis.com/youtube/v3/videos?part=statistics%2C+snippet&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4')
 	.constant('YT_VIDEO_CITY_URL', 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&key=AIzaSyCl3iyhmnx5ZUPKoVoDSJWNyJEdZi1jNR4&type=video&maxResults=48&q=&locationRadius=25km')
 	.factory('getVideos', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_VIDEO_URL', function($http, $q, $log, ytVideoPrepare, YT_VIDEO_URL){
 		return function(){
@@ -28,23 +29,23 @@ angular.module("myTube.modelservices",[])
 			return defer.promise;
 		};
 	}])
-	.factory('getVideo', ['$http', '$q', '$log', 'ytVideoPrepare', 'YT_ONE_VIDEO_URL', function($http, $q, $log, ytVideoPrepare, YT_ONE_VIDEO_URL){
+	.factory('getVideo', ['$http', '$q', '$log', 'YT_VIDEO_COUNT_URL', 'ytVideoPrepare', function($http, $q, $log, YT_VIDEO_COUNT_URL, ytVideoPrepare){
 		return function(vidID){
 			var defer = $q.defer();
 
-			$http.get(YT_ONE_VIDEO_URL,{
+			$http.get(YT_VIDEO_COUNT_URL,{
 		        params: {
-		          q: vidID,
-		          fields: 'items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
-		        	}
+		          id: vidID,
+		          fields: 'items/statistics,items/id,items/snippet/title,items/snippet/description,items/snippet/thumbnails/high'
+		          }
 		      	})
 				.success(function(response){
-
-				  var results = [];
+		    	  var results = [];
+		          $log.info(response);
 		          angular.forEach(response.items, function(entry) {
 		             results.push(ytVideoPrepare(entry));
 		            });
-		          $log.info(response);
+		          
 		          defer.resolve(results[0]);
 		        });
 			return defer.promise;
@@ -97,7 +98,9 @@ angular.module("myTube.modelservices",[])
 		return function(entry){
 	      var id          = entry.id.videoId;
 	      var thumbnails  = [];
-
+	      function numberWithCommas(x) {
+ 		   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		  }
 	      var hqVideo;
 	      //angular.forEach($media.media$thumbnail || [], function(thumb) {
 	        var image = {
@@ -116,6 +119,7 @@ angular.module("myTube.modelservices",[])
 	        thumbnails : thumbnails,
 	        title : entry.snippet.title,
 	        description : entry.snippet.description,
+	        viewCount : entry.hasOwnProperty('statistics') ? numberWithCommas(entry.statistics.viewCount) : '0',
 	        rating : 0,
 	        keywords : 'keywords',
 	        embedUrl : ytCreateEmbedURL(id)
@@ -123,6 +127,7 @@ angular.module("myTube.modelservices",[])
 		};
 
 	}])
+
 	.factory('ytCreateEmbedURL',['YT_EMBED_URL', function(YT_EMBED_URL){
 		return function(id){
 			return YT_EMBED_URL.replace('{ID}', id);
