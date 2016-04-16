@@ -96,7 +96,7 @@ angular.module("myTube.modelservices",[])
 	}])
 	.factory('ytVideoPrepare',['ytCreateEmbedURL', function(ytCreateEmbedURL){
 		return function(entry){
-	      var id          = entry.id.videoId;
+	      var id          = entry.id.videoId || entry.id
 	      var thumbnails  = [];
 	      function numberWithCommas(x) {
  		   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
